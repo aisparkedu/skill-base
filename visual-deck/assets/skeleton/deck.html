@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>演示稿（合成翻页）</title>
+<!--
+  把所有页装进这一个文件，← → / 点击 / 空格翻页，全屏自适应。
+  视觉页和信息页现在同为「定尺 slide」，整块复制进来即可，无需改定位：
+  - 视觉页(路线B)：<div class="slide bgcover ..." style="--bg-img:url(...)">（见 visual-page.html）
+  - 信息页：<div class="slide"> 内用组件库拼（见 info-page.html）
+  比例不写死：默认横版，改 style-claymation.css 的 --slide-w/--slide-h 一处即可（fit 读 .deck 实际尺寸自适应）。
+  body 背景色 = slide 边缘色，避免全屏 letterbox 处出现色差缝（坑#4）。
+  复制 style-claymation.css 到同目录。location.hash 可指定初始页：deck.html#3
+-->
+<link rel="stylesheet" href="style-claymation.css">
+<style>
+  html,body{height:100%;margin:0;overflow:hidden;background:#efe7d6;
+    background-image:radial-gradient(rgba(255,255,255,.45) 1px,transparent 1px);background-size:8px 8px}
+  .stage{position:fixed;inset:0;cursor:pointer}
+  /* deck 定尺，靠 fit() 显式 translate 居中 + scale；transform-origin 必须 top left。
+     ⚠ 别用 flex 居中 deck：视口比 deck 窄(如 1366/1280 笔记本)时，flex 处理溢出元素会把内容推出右边裁掉 */
+  .deck{position:fixed;top:0;left:0;width:var(--slide-w,1920px);height:var(--slide-h,1080px);transform-origin:top left}
+  .deck .slide{position:absolute;top:0;left:0;opacity:0;visibility:hidden;
+    transition:opacity .45s ease,transform .45s ease;transform:scale(.985)}
+  .deck .slide.active{opacity:1;visibility:visible;transform:scale(1);z-index:2}
+  .deck .slide.active .shead{animation:rise .55s .05s both}
+  .deck .slide.active .sbody{animation:rise .6s .18s both}
+  /* 标题入场用 rise（结束帧 transform:translateY(0)）；居中务必交给 flex，别用 transform:translateY(-50%) 否则被盖掉（坑#8） */
+  .deck .slide.active .titlebox{animation:rise .6s .12s both}
+</style>
+</head>
+<body>
+<div class="stage"><div class="deck">
+
+  <div class="slide bgcover active" style="--bg-img:url('BG.png')"><!-- 第1页 视觉页：底图当背景，里面放 .titlebox --></div>
+  <div class="slide"><!-- 第2页 信息页：拼组件 --></div>
+  <!-- …继续加 .slide… -->
+
+</div></div>
+<script>
+var S=[].slice.call(document.querySelectorAll('.slide')), i=0;
+function show(n){i=(n+S.length)%S.length; S.forEach(function(s,k){s.classList.toggle('active',k===i);});}
+function fit(){var d=document.querySelector('.deck');
+  var sw=d.offsetWidth, sh=d.offsetHeight;
+  var k=Math.min(window.innerWidth/sw, window.innerHeight/sh);
+  var x=(window.innerWidth - sw*k)/2, y=(window.innerHeight - sh*k)/2;
+  d.style.transform='translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px) scale('+k.toFixed(4)+')';}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){show(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){show(i-1);e.preventDefault();}});
+document.querySelector('.stage').addEventListener('click',function(e){
+  if(e.clientX<window.innerWidth*0.25)show(i-1); else show(i+1);});
+window.addEventListener('resize',fit); window.addEventListener('load',fit);
+var start=parseInt((location.hash||'').slice(1))||1; show(start-1); fit();
+</script>
+</body>
+</html>

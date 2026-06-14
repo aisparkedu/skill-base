@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 本地管理用，不开源（个人电脑用的总表/对照表）
+SKILLS-INDEX.md

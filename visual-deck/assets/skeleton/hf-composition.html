@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN" data-resolution="landscape">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  /*
+    把 deck 的 <style> 整段贴进来，但删掉这三类（视频里不需要、还会打架）：
+      ① .stage / .deck 及其 transform 缩放规则      ② fit()/翻页相关
+      ③ .slide 的 opacity 切换 + @keyframes 入场动效（入场改由下方 GSAP 驱动）
+    .slide 改成在 #root 里 position:absolute;inset:0 铺满（下面已给）。
+  */
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1920px;height:1080px;margin:0;overflow:hidden;background:#000}
+  #root{position:relative;width:1920px;height:1080px}
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:flex;flex-direction:column}
+
+  /* 中文字体：hyperframes 字体表没有中文 → 默认走 fallback CJK（实测够干净，可直接用）。
+     想精确用 deck 的圆体/PingFang，放一个 woff2 到 assets/fonts/ 并解开下面两行： */
+  /* @font-face{font-family:"DeckCJK";src:url("assets/fonts/your-cjk.woff2") format("woff2");font-weight:400 900}
+     .slide{font-family:"DeckCJK","PingFang SC",sans-serif} */
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1920" data-height="1080">
+  <!--
+    每页 = 一个 .slide.clip：
+      · data-start = 页序号 × PER（每页停留秒数，和下面 JS 的 PER 一致）
+      · data-duration = PER，data-track-index 全填 1
+      · 给每页一个唯一 id（lint 要求）
+      · 复用的同一张图（如吉祥物）每处 src 加 ?1 ?2 … 唯一化，否则会被当重复媒体去重
+      · 图片路径改成 assets/…
+  -->
+  <div id="scene-1" class="slide clip" data-start="0" data-duration="3" data-track-index="1">
+    <!-- 第1页内容（从 deck 复制） -->
+  </div>
+  <div id="scene-2" class="slide clip" data-start="3" data-duration="3" data-track-index="1">
+    <!-- 第2页 -->
+  </div>
+  <!-- …继续加，data-start 依次 +PER；最后把 #root 的 data-duration 改成 页数×PER … -->
+</div>
+
+<script>
+  // 通用入场时间轴：每页内容淡入+上浮、吉祥物轻浮动。改 PER 调每页停留秒数。
+  // ⚠ #root 的 data-duration 必须 = 页数 × PER。只用确定性逻辑（禁 Date.now/random/fetch）。
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+  const PER = 3;
+  Array.prototype.slice.call(document.querySelectorAll(".slide")).forEach(function (s, i) {
+    const t = i * PER;
+    const content = s.querySelectorAll(".shead, .titlebox, .sbody, .cta-box, .compare, .steps, .glass, .card");
+    if (content.length) tl.from(content, { opacity: 0, y: 46, duration: 0.6, stagger: 0.1, ease: "power2.out" }, t + 0.05);
+    const m = s.querySelector(".mascot");
+    if (m) {
+      tl.from(m, { opacity: 0, scale: 0.9, duration: 0.5, ease: "back.out(1.6)" }, t + 0.15);
+      tl.fromTo(m, { y: 0 }, { y: -18, duration: 1.25, ease: "sine.inOut", yoyo: true, repeat: 1 }, t + 0.5);
+    }
+  });
+  window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

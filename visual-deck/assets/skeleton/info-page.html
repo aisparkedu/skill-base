@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>信息页（纯 HTML/CSS）</title>
+<!--
+  用法：
+  1. 复制 assets/style-claymation.css 和 fit.js 到本页同目录
+  2. 从组件库挑组件拼内容（见 style-claymation.css 里的 class）：
+     卡片 .claycard / 徽章 .badge / 立体标题 .htitle.t-* / 波形 .wave / 时间线 .tl.clip
+     字幕表 .subs / 终端 .term / 文件 .file / 标签云 .tagcloud.wtag / 步骤条 .steprow
+  3. 需要立体小图标/人物 → imgen 出白底图，chroma_cut.py 抠透明，当 <img> 贴入
+  4. 用到 .clip（时间线帧图）时，帧图路径用 CSS 变量注入，别写死：
+     <div class="tl" style="--clip-img:url('你的素材/帧.png')"> … </div>
+  注意：内容总高别超 slide 高（默认 1080），否则底部被截（坑#5）；用 scripts/deckcheck.py 自动检测溢出
+-->
+<link rel="stylesheet" href="style-claymation.css">
+</head>
+<body>
+  <div class="slide">
+    <div class="shead"><div class="badge b-green">1</div><div class="htitle t-green">页标题占位</div></div>
+    <div class="sbody">
+      <div class="claycard">把信息组件拼在这里（波形 / 时间线 / 表格 / 终端 / 标签云…）</div>
+    </div>
+  </div>
+  <script src="fit.js"></script>
+</body>
+</html>

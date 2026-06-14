@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>视觉页（路线B：底图当 slide 背景 + px 叠字）</title>
+<!--
+  用法：
+  1. imgen 出「留白底图」（主体一侧、另一侧留白、无文字），路径填到下面 .cover1 的 --bg-img
+  2. .slide 同时加 class `bgcover`：底图直接当 slide 背景 cover；和信息页同为「定尺 slide」→ 整块复制进 deck.html 零返工
+  3. 文字用 px（slide 定尺、靠 fit 整体缩放，所以别用 vw——vw 是视口相对的，进 deck 缩放后会变形）
+  4. 居中交给 flex（.bgcover 已是 row + align-items:center）；别用 transform 居中，会被入场动效盖掉（坑#8）
+  合成进 deck 后若四缘露 body 色：body 底色要 = 底图边缘色（坑#4）。出图后用 scripts/deckcheck.py 自动扫四缘色差 + 溢出
+-->
+<link rel="stylesheet" href="style-claymation.css">
+<style>
+  .cover1{--bg-img:url("BG.png")}        /* ← 换成你的留白底图 */
+  .cover1 .titlebox{margin-left:185px;max-width:62%}
+  .cover1 .title{font-size:150px;font-weight:900;color:#fff;line-height:1.04;font-family:var(--font);
+    -webkit-text-stroke:10px var(--purpleD);paint-order:stroke fill;
+    text-shadow:0 9px 0 rgba(80,55,180,.5),0 16px 22px rgba(60,40,140,.42)}
+  .cover1 .title .em{color:var(--yellow);-webkit-text-stroke:10px #c98a14}
+  .cover1 .sub{display:inline-block;margin-top:34px;background:var(--purpleD);color:#fff;font-size:46px;font-weight:800;
+    padding:22px 46px;border-radius:30px;
+    box-shadow:inset 0 4px 9px rgba(255,255,255,.25),0 14px 22px rgba(60,40,140,.35)}
+</style>
+</head>
+<body>
+  <div class="slide bgcover cover1">
+    <div class="titlebox">
+      <div class="title">主标题<br><span class="em">高亮词</span></div>
+      <div><span class="sub">副标题占位</span></div>
+    </div>
+  </div>
+  <script src="fit.js"></script>
+</body>
+</html>
