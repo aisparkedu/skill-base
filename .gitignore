@@ -10,3 +10,4 @@ venv/
 
 # 本地管理用，不开源（个人电脑用的总表/对照表）
 SKILLS-INDEX.md
+.idea

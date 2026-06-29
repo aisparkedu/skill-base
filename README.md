@@ -20,7 +20,7 @@ Skill 是 AI 智能体的「可复用技能包」：放进智能体的 skills �
 
 ---
 
-## Skill 清单（共 30 个）
+## Skill 清单（共 31 个）
 
 ### 📄 文档处理（4）
 - **word-docx** —— Markdown 一键生成带标题 / 列表 / 表格的 Word(.docx)，也能反向提取 .docx 文本。
@@ -52,7 +52,8 @@ Skill 是 AI 智能体的「可复用技能包」：放进智能体的 skills �
 - **financial-analyst** —— 财务比率分析、DCF 估值、预算差异分析、滚动预测。
 - **notebooklm** —— 浏览器自动化操控 NotebookLM：开笔记本、加来源、向笔记本提问。
 
-### ⚙️ 效率 / 协作 / 工程（8）
+### ⚙️ 效率 / 协作 / 工程（9）
+- **check-reset-credits** —— 安全查询 Codex 重置额度、授予时间和本地到期时间，不暴露凭证或唯一 ID。
 - **meeting-summarizer** —— 会议纪要：提炼决策、待办、下一步，出完整版 + 速读版两个版本。
 - **weekly-planner** —— 周计划：用艾森豪威尔矩阵排优先级 + 时间块。
 - **decision-matrix** —— 决策矩阵：选项 × 加权标准打分，帮你在多个选择间做复杂取舍。
