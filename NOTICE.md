@@ -15,6 +15,7 @@
 
 - **文档处理**（word-docx / excel-xlsx / ppt-pptx / pdf-toolkit）：基于开放的 Agent Skills 格式标准 + 公开 Python 库（python-docx / openpyxl / python-pptx / PyMuPDF）从零原创，未引用任何第三方 Skill 代码。
 - **作者自有**（来自 [xiaomoBoy/visual-deck](https://github.com/xiaomoBoy/visual-deck)、[xiaomoBoy/claude-writing-skills](https://github.com/xiaomoBoy/claude-writing-skills)，MIT）：visual-deck / research-collector / score-optimizer / article-optimizer / publisher-wechatsync / yt-dlp-direct。
+- **作者自有迁入**（阿Lin，来自 [ai-alin/alin-skills](https://github.com/ai-alin/alin-skills)）：wechat-explainer-images，包含暖奶油纸雕与钢笔杂志两套正式风格；本次在本合集按 MIT 协议分发，详见其 [_SOURCE.md](./wechat-explainer-images/_SOURCE.md)。
 
 ---
 
