@@ -20,7 +20,7 @@ Skill 是 AI 智能体的「可复用技能包」：放进智能体的 skills �
 
 ---
 
-## Skill 清单（共 31 个）
+## Skill 清单（共 32 个）
 
 ### 📄 文档处理（4）
 - **word-docx** —— Markdown 一键生成带标题 / 列表 / 表格的 Word(.docx)，也能反向提取 .docx 文本。
@@ -28,8 +28,9 @@ Skill 是 AI 智能体的「可复用技能包」：放进智能体的 skills �
 - **ppt-pptx** —— 把 Markdown 大纲（`#` 标题、`-` 要点）直接生成 PowerPoint(.pptx)。
 - **pdf-toolkit** —— PDF 提取文本、合并多个 PDF、按页拆分。
 
-### ✍️ 内容创作（8）
+### ✍️ 内容创作（9）
 - **visual-deck** —— 把选题 / 大纲做成图文混合的全屏 HTML 演示稿（科普图、讲解 PPT、知识卡）。
+- **[wechat-explainer-images](./wechat-explainer-images/SKILL.md)** —— 将文章浓缩成可独立阅读的公众号总结图，或制作封面与章节解释图；内置暖奶油纸雕、钢笔杂志两套风格和参考图。需图像生成工具及 Python/Pillow，安装时复制完整目录。
 - **content-production** —— 内容生产全流水线，一个选题从空白页做到可发布成稿。
 - **storytelling-expert** —— 故事化表达：叙事结构、开场钩子、情绪弧线，把干内容讲出感染力。
 - **article-optimizer** —— 针对某一篇具体文章做定向优化打磨。
